@@ -25,6 +25,7 @@
       "predictiveBackGestureEnabled": false,
       "package": "com.cuidatucolonia.homely",
       "versionCode": 1,
+      "usesCleartextTraffic": true,
       "permissions": [
         "CAMERA",
         "READ_EXTERNAL_STORAGE",
