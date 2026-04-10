@@ -1,0 +1,56 @@
+{
+  "expo": {
+    "name": "Homely",
+    "slug": "homely",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icono.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/icono.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.cuidatucolonia.homely"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icono.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "package": "com.cuidatucolonia.homely",
+      "versionCode": 1,
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "INTERNET"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Homely necesita acceso a tus fotos para compartirlas.",
+          "cameraPermission": "Homely necesita acceso a tu cámara para tomar fotos."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "e4bc1e3c-8374-4f11-9d07-3f4ef685f8c8"
+      }
+    },
+    "owner": "droner1421"
+  }
+}

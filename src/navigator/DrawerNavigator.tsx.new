@@ -1,0 +1,165 @@
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useWindowDimensions } from 'react-native';
+import { HomeFormulario } from "../screens/HomeFormulario";
+import { ScreenReporte } from "../screens/ScreenReporte";
+import { ScreenNotificaciones } from "../screens/ScreenNotificaciones";
+import { ScreenPerfil } from "../screens/ScreenPerfil";
+import { ScreenLogin } from "../screens/ScreenLogin";
+import { ScreenRegistro } from "../screens/ScreenRegistro";
+import { DrawerMenu } from "../components/DrawerMenu";
+import { useAuthApi } from "../hooks/useAuthApi";
+import { useEffect, useState } from "react";
+
+export type RootDrawerNavigator = {
+    HomeReportes: undefined;
+    CrearReporte: undefined;
+    MisReportes: undefined;
+    Notificaciones: undefined;
+    Perfil: undefined;
+    ScreenReporte: { reporteId?: number; isNew?: boolean };
+};
+
+const HomeStack = () => {
+    const Stack = createNativeStackNavigator();
+    return (
+        <Stack.Navigator
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: '#667eea',
+                },
+                headerTintColor: 'white',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                },
+            }}
+        >
+            <Stack.Screen
+                name="HomeReportesStack"
+                component={HomeFormulario}
+                options={{
+                    title: 'HomeLY Reportes',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="ScreenReporte"
+                component={ScreenReporte}
+                options={{
+                    title: 'Reporte',
+                    headerShown: true,
+                }}
+            />
+        </Stack.Navigator>
+    );
+};
+
+const NavDrawer = () => {
+    const Drawer = createDrawerNavigator<RootDrawerNavigator>();
+    const { width } = useWindowDimensions();
+
+    return (
+        <Drawer.Navigator
+            initialRouteName="HomeReportes"
+            screenOptions={{
+                headerShown: false,
+                drawerType: width >= 768 ? "permanent" : "front",
+                drawerPosition: "right",
+                drawerStyle: {
+                    backgroundColor: "#FFFFFF",
+                    width: width * 0.7,
+                },
+            }}
+            drawerContent={(props) => <DrawerMenu {...props} />}
+        >
+            <Drawer.Screen
+                name="HomeReportes"
+                component={HomeStack}
+                options={{ title: "Inicio" }}
+            />
+            <Drawer.Screen
+                name="CrearReporte"
+                component={ScreenReporte}
+                options={{ title: "Crear Reporte" }}
+                initialParams={{ isNew: true }}
+            />
+            <Drawer.Screen
+                name="Notificaciones"
+                component={ScreenNotificaciones}
+                options={{ title: "Notificaciones" }}
+            />
+            <Drawer.Screen
+                name="Perfil"
+                component={ScreenPerfil}
+                options={{ title: "Mi Perfil" }}
+            />
+        </Drawer.Navigator>
+    );
+};
+
+const AuthStack = () => {
+    const Stack = createNativeStackNavigator();
+    return (
+        <Stack.Navigator
+            screenOptions={{
+                headerShown: false,
+            }}
+        >
+            <Stack.Screen
+                name="ScreenLogin"
+                component={ScreenLogin}
+                options={{ animationEnabled: false }}
+            />
+            <Stack.Screen
+                name="ScreenRegistro"
+                component={ScreenRegistro}
+                options={{ animationEnabled: false }}
+            />
+        </Stack.Navigator>
+    );
+};
+
+export const DrawerNavigator = () => {
+    const Stack = createNativeStackNavigator();
+    const { user, getCurrentUser } = useAuthApi();
+    const [isChecking, setIsChecking] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const checkUser = async () => {
+            try {
+                const userData = await getCurrentUser();
+                setIsLoggedIn(!!userData);
+            } catch (error) {
+                console.error('Error checking user:', error);
+                setIsLoggedIn(false);
+            } finally {
+                setIsChecking(false);
+            }
+        };
+
+        checkUser();
+    }, []);
+
+    if (isChecking) {
+        return null;
+    }
+
+    return (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            {isLoggedIn || user ? (
+                <Stack.Screen
+                    name="DrawerApp"
+                    component={NavDrawer}
+                    options={{ animationEnabled: false }}
+                />
+            ) : (
+                <Stack.Screen
+                    name="AuthStack"
+                    component={AuthStack}
+                    options={{ animationEnabled: false }}
+                />
+            )}
+        </Stack.Navigator>
+    );
+};
