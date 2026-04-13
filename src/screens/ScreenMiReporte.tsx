@@ -40,7 +40,7 @@ export const ScreenMiReporte = ({ navigation, route }: Props) => {
       console.log('========================================');
       
       if (!reporteId) {
-        console.error('❌ reporteId es undefined');
+        console.error(' reporteId es undefined');
         setLoading(false);
         return;
       }
@@ -48,7 +48,7 @@ export const ScreenMiReporte = ({ navigation, route }: Props) => {
       try {
         const data = await getReporteById(reporteId);
         
-        console.log('✅ [MI REPORTE] Reporte cargado:', {
+        console.log(' [MI REPORTE] Reporte cargado:', {
           id: data?.id,
           categoria: data?.categoria,
           estado: data?.estado,
@@ -59,7 +59,7 @@ export const ScreenMiReporte = ({ navigation, route }: Props) => {
 
         setReporte(data);
       } catch (err) {
-        console.error('❌ [MI REPORTE] Error al cargar:', err);
+        console.error(' [MI REPORTE] Error al cargar:', err);
         Alert.alert('Error', 'No se pudo cargar el reporte');
       } finally {
         setLoading(false);
@@ -82,7 +82,7 @@ export const ScreenMiReporte = ({ navigation, route }: Props) => {
       [
         {
           text: 'Cancelar',
-          onPress: () => console.log('❌ Eliminación cancelada'),
+          onPress: () => console.log(' Eliminación cancelada'),
           style: 'cancel',
         },
         {
@@ -93,7 +93,7 @@ export const ScreenMiReporte = ({ navigation, route }: Props) => {
             try {
               console.log('🗑️ [MI REPORTE] Eliminando reporte ID:', reporteId);
               await deleteReporte(reporteId);
-              console.log('✅ [MI REPORTE] Reporte eliminado exitosamente');
+              console.log(' [MI REPORTE] Reporte eliminado exitosamente');
               Alert.alert('Éxito', 'Reporte eliminado correctamente', [
                 {
                   text: 'OK',
@@ -101,7 +101,7 @@ export const ScreenMiReporte = ({ navigation, route }: Props) => {
                 },
               ]);
             } catch (err) {
-              console.error('❌ [MI REPORTE] Error al eliminar:', err);
+              console.error(' [MI REPORTE] Error al eliminar:', err);
               Alert.alert('Error', 'No se pudo eliminar el reporte');
             } finally {
               setDeleting(false);
@@ -138,7 +138,7 @@ export const ScreenMiReporte = ({ navigation, route }: Props) => {
   if (!reporte) {
     return (
       <View style={styles.errorContainer}>
-        <Text style={styles.errorText}>❌ Reporte no encontrado</Text>
+        <Text style={styles.errorText}> Reporte no encontrado</Text>
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.goBack()}
@@ -180,9 +180,9 @@ export const ScreenMiReporte = ({ navigation, route }: Props) => {
           ]}
         >
           <Text style={styles.statusText}>
-            {reporte.estado === 'pendiente' && '⏳ Pendiente'}
-            {reporte.estado === 'en_proceso' && '⚙️ En Proceso'}
-            {reporte.estado === 'finalizado' && '✅ Finalizado'}
+            {reporte.estado === 'pendiente' && ' Pendiente'}
+            {reporte.estado === 'en_proceso' && ' En Proceso'}
+            {reporte.estado === 'finalizado' && ' Finalizado'}
           </Text>
         </View>
         <Text style={styles.categoryBadgeText}>{reporte.categoria}</Text>
@@ -191,7 +191,7 @@ export const ScreenMiReporte = ({ navigation, route }: Props) => {
       {/* TARJETA PRINCIPAL */}
       <View style={styles.card}>
         {/* Descripción del Problema */}
-        <Text style={styles.sectionTitle}>📝 Descripción del Problema</Text>
+        <Text style={styles.sectionTitle}> Descripción del Problema</Text>
         <Text style={styles.description}>{reporte.descripcion}</Text>
 
         {/* Imagen del Problema */}
@@ -206,14 +206,14 @@ export const ScreenMiReporte = ({ navigation, route }: Props) => {
               }}
               style={styles.problemImage}
               resizeMode="cover"
-              onLoad={() => console.log('✅ Imagen problema cargada')}
-              onError={(e) => console.error('❌ Error imagen problema:', e)}
+              onLoad={() => console.log(' Imagen problema cargada')}
+              onError={(e) => console.error(' Error imagen problema:', e)}
             />
           </View>
         )}
 
         {/* Ubicación */}
-        <Text style={styles.sectionTitle}>📍 Ubicación</Text>
+        <Text style={styles.sectionTitle}> Ubicación</Text>
         {reporte.direccion && (
           <Text style={styles.address}>{reporte.direccion}</Text>
         )}
@@ -230,7 +230,7 @@ export const ScreenMiReporte = ({ navigation, route }: Props) => {
       {/* SECCIÓN DE SOLUCIÓN */}
       <View style={styles.card}>
         <Text style={[styles.sectionTitle, { marginBottom: 15 }]}>
-          🔧 Evidencia de Solución
+           Evidencia de Solución
         </Text>
 
         {reporte.imagen_solucion_url ? (
@@ -238,7 +238,7 @@ export const ScreenMiReporte = ({ navigation, route }: Props) => {
             {/* Status verde */}
             <View style={styles.solutionStatus}>
               <Text style={styles.solutionStatusText}>
-                ✅ Solución Confirmada
+                 Solución Confirmada
               </Text>
             </View>
 
@@ -267,9 +267,7 @@ export const ScreenMiReporte = ({ navigation, route }: Props) => {
                   ? imagenUrl
                   : `${baseUrl}${imagenUrl}`;
 
-                console.log('🖼️ [SOLUCIÓN] Construyendo URL:');
-                console.log('   imagen_url:', imagenUrl);
-                console.log('   url_final:', urlFinal);
+           
 
                 return (
                   <>
@@ -282,13 +280,13 @@ export const ScreenMiReporte = ({ navigation, route }: Props) => {
                       style={styles.solutionImage}
                       resizeMode="contain"
                       onLoadStart={() =>
-                        console.log('⏳ Cargando imagen de solución...')
+                        console.log(' Cargando imagen de solución...')
                       }
                       onLoad={() =>
-                        console.log('✅ Imagen de solución cargada exitosamente')
+                        console.log(' Imagen de solución cargada exitosamente')
                       }
                       onError={(e) => {
-                        console.error('❌ Error cargando imagen de solución');
+                        console.error(' Error cargando imagen de solución');
                         console.error('   URL:', urlFinal);
                         console.error('   Error:', e);
                       }}
@@ -302,7 +300,7 @@ export const ScreenMiReporte = ({ navigation, route }: Props) => {
             {reporte.mensaje_admin && (
               <View style={styles.adminMessage}>
                 <Text style={styles.adminMessageLabel}>
-                  💬 Mensaje del Administrador:
+                   Mensaje del Administrador:
                 </Text>
                 <Text style={styles.adminMessageText}>{reporte.mensaje_admin}</Text>
               </View>
@@ -317,7 +315,7 @@ export const ScreenMiReporte = ({ navigation, route }: Props) => {
           </View>
         ) : (
           <View style={styles.waitingContainer}>
-            <Text style={styles.waitingIcon}>⏳</Text>
+            <Text style={styles.waitingIcon}></Text>
             <Text style={styles.waitingTitle}>Esperando Solución</Text>
             <Text style={styles.waitingText}>
               El administrador está trabajando en tu reporte. Aquí aparecerá la evidencia

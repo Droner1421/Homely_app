@@ -177,7 +177,7 @@ export const ScreenReporte = ({ navigation: navProp, route }: Props) => {
             <View style={styles.formContainer}>
                 {/* Sección: Información del Reporte */}
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>ℹ️ Información del Reporte</Text>
+                    <Text style={styles.sectionTitle}> Información del Reporte</Text>
 
                     {/* Categoría */}
                     <View style={styles.formGroup}>
@@ -210,7 +210,7 @@ export const ScreenReporte = ({ navigation: navProp, route }: Props) => {
 
                 {/* Sección: Ubicación */}
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>📍 Ubicación</Text>
+                    <Text style={styles.sectionTitle}> Ubicación</Text>
 
                     {/* Búsqueda de dirección */}
                     <View style={styles.formGroup}>
@@ -226,7 +226,7 @@ export const ScreenReporte = ({ navigation: navProp, route }: Props) => {
 
                     {/* Botón de ubicación */}
                     <TouchableOpacity style={styles.locationButton} onPress={obtenerUbicacion}>
-                        <Text style={styles.locationButtonText}>📌 Obtener mi ubicación</Text>
+                        <Text style={styles.locationButtonText}> Obtener mi ubicación</Text>
                     </TouchableOpacity>
 
                     {/* Coordenadas */}
@@ -242,7 +242,7 @@ export const ScreenReporte = ({ navigation: navProp, route }: Props) => {
 
                 {/* Sección: Foto del Problema */}
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>📸 Foto del Problema (Opcional)</Text>
+                    <Text style={styles.sectionTitle}> Foto del Problema (Opcional)</Text>
 
                     <View style={styles.formGroup}>
                         <TouchableOpacity
@@ -250,7 +250,7 @@ export const ScreenReporte = ({ navigation: navProp, route }: Props) => {
                             onPress={seleccionarImagen}
                         >
                             <Text style={styles.imagePickerButtonText}>
-                                📤 Seleccionar imagen
+                                 Seleccionar imagen
                             </Text>
                         </TouchableOpacity>
                     </View>
